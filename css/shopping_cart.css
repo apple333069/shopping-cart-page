@@ -348,6 +348,22 @@ a:hover{
     float: none;
     margin: 0 auto;
   }
+  ul{
+    width: 80%;
+    margin:0  auto;
+  } 
+  ul>li .step-size{
+    font-size: 14px;
+  }
+  ul>li>.circle{
+    width: 20px; height: 20px;
+    left: -21px; 
+    line-height: 20px;
+  }
+  ul>li>i{
+    display: none!important;
+    margin:unset;
+  }
   #table-cart>.item-line>tr>td{
     padding: 10px;
   }

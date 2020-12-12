@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShoppingCart</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
+	<link rel="stylesheet" href="css/shopping_cart.css">
+	<link rel="stylesheet" href="css/css/all.css">
+  <link rel="stylesheet" href="css/bootstrap.css"/>
+</head>
+<body>
+  <div id="container">
+    <div id="cart">
+      <div id="cart-detail" class="cart-detail">
+        <div class="detail-list" style="padding-bottom: 28px;">
+          <div class="list-title">
+            <span>結帳金額</span>
+            <span class="fas fa-sort-up arrow-right"></span>
+          </div>
+          <hr>
+          <div class="">
+            <div class="list-row">
+              <span>商品小計</span>
+              <span class="price">1,700</span>
+            </div>
+            <hr>
+            <div class="list-row">
+              <span>滿額折扣</span>
+              <span class="price">-340</span>
+            </div>
+          </div>
+          <hr>
+          <div class="list-row">
+            <span>運費</span>
+            <span class="price">0</span>
+          </div>
+          <hr>
+          <div class="list-row">
+            <span class="list-title" style="font-size: 13px;">應付總額</span>
+            <span class="price price-color">
+              <span style="margin-right: 5px;">NT$</span>
+              <span class="price-all" v-cloak>{{total.totalPrice}}</span>
+            </span>
+          </div>
+        </div>
+        <div class="item-list">
+          <div>
+            <span class="item-title">購物車內容</span>
+            <span class="pull-right fas fa-sort-up arrow-right"></span>
+          </div>
+          <div class="item-product-list">
+            <div class="item-row">
+              <p>卡比寶_戴圍巾的卡比獸</p>
+              <div class="sub-row">
+                <span class="">數量:1</span>
+              </div>
+            </div>
+            <div class="item-row">
+              <p>卡比狗_會玩車的狗狗</p>
+              <div class="sub-row">
+                <span>數量:1</span>
+              </div>
+            </div>
+            <div class="item-row">
+              <p>戴花圈的狗狗</p>              
+              <div class="sub-row">
+                <span>數量:1</span>
+              </div>
+            </div>
+          </div>
+          <p class="item-count">合計有3項商品</p>
+        </div>
+      </div>
+      <div id="cart-content" class="cart-content">
+        <div class="header">
+          <ul class="d-flex justify-content-around">
+            <li>
+              <span class="circle">1</span>            
+              <span class="step-now step-size">確認購物車</span>             
+            </li>
+            <li>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="">
+              <span class="circle gr">2</span> 
+              <span class="step-size">付款與運送方式</span>             
+            </li>
+            <li>
+              <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="">
+              <span class="circle gr">3</span> 
+              <span class="step-size">資料填寫</span>             
+            </li>
+          </ul>
+        </div>
+        <div class="content">
+          <table id="table-cart" class="table-cart">
+            <thead class="table-head">
+              <tr>
+                <th colspan="2">商品明細</th>
+                <th>單價</th>
+                <th>數量</th>
+                <th>小計</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="item-line" v-for="(item,index) in shoppingCart" :key="index">
+              <tr>
+                <td class="item-img" rowspan="2">
+                  <div class="item-line-img">
+                    <a href="javascript:;">
+                      <img class="image" :src="item.src">
+                    </a>
+                  </div>     
+                </td>
+                <td class="product-name">
+                  <a href="javascript:;" v-cloak>{{item.name}}</a>
+                </td>
+                <td>
+                  <span v-cloak>{{item.nprice}}</span>
+                </td>
+                <td class="count-group">
+                  <div class="count-button">
+                    <button class="minus" @click="item.num--" :disabled="item.num==1">-</button>
+                    <div class="count" v-cloak>{{item.num}}</div>
+                    <button class="plus" @click="item.num++">+</button>
+                </td>
+                <td>
+                  <del>
+                    <span v-cloak>{{item.nprice*item.num}}</span>
+                  </del>
+                </td>
+                <td>
+                  <button class="delete" @click="delItem(index)"><i class="far fa-trash-alt"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="discount-group" colspan="3">
+                  <div class="discount-body">
+                    <div class="discount-reach">已達優惠</div>
+                    <div class="discount-label">指定優惠商品滿額享8折優惠</div>
+                    <div class="discount-number" v-cloak>折扣{{item.nprice*item.num-item.nprice*item.num*0.8}}</div>
+                  </div>
+                </td>
+                <td class="discount-price">
+                  <span v-cloak>優惠價{{item.nprice*item.num*0.8}}元</span>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+            <tfoot class="table-foot">
+              <tr>
+                <td colspan="6" class="total-price">                  
+                  <div style="text-align: left;" v-cloak>購物車內合計有{{total.num}}項商品</div>
+                  <div class="price price-color" style="text-align: right;">
+                    <span style="margin-right: 5px;">NT$</span>
+                    <span class="price-all" v-cloak>{{total.totalPrice|prices}}</span>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/shoppingcart.js"></script>
+</body>
+</html>

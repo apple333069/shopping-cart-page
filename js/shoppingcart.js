@@ -3,7 +3,7 @@ var vm=new Vue({
   data:{  
     shoppingCart:[
       {src:"img/IMG_6581.JPG",name:"卡比寶_戴圍巾的卡比獸",nprice:900,num:1,delprice:900,discount:180,price:720},
-      {src:"img/IMG_1533.JPG",name:"卡比狗_會玩車的狗狗",nprice:300,num:1,delprice:300,discount:60,price:240},
+      {src:"img/IMG_1533.jpg",name:"卡比狗_會玩車的狗狗",nprice:300,num:1,delprice:300,discount:60,price:240},
       {src:"img/IMG_5670.JPG",name:"戴花圈的狗狗",nprice:500,num:1,delprice:500,discount:100,price:400}  
     ] 
   },
